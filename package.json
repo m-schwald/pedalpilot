@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-
   "workspaces": [
     "packages/frontend",
     "packages/backend"
@@ -14,5 +13,9 @@
     "dev:backend": "npm run dev -w packages/backend"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "react-router-dom": "^6.23.1"
+  }
 }

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity()
-export class Rider {
+export class Riders {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -11,7 +11,7 @@ export class Rider {
     @Column({ type: "text"})
     lastName: string
 
-    @Column({ type: "text"})
+    @Column({ type: "text", unique: true})
     username: string
 
     @Column({ type: "int"})

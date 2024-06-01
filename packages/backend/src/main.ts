@@ -2,22 +2,21 @@ import 'reflect-metadata'
 import express from 'express'
 import cors from 'cors'
 import { AppDataSource } from './system/Database'
-import { z } from 'zod'
+import deliveryRoutes from './routes/deliveryRoutes'
+import customerRoutes from './routes/customerRoutes'
 
 const app = express()
+
 app.use(cors())
+app.use(express.json())
+
+//app.use('/riders', riderRoutes)
+app.use('/deliveries', deliveryRoutes)
+app.use('/customers', customerRoutes)
+
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+    res.send({ message: "Backend is running!"})
 })
-
-const xSchema = z.object({
-  name: z.string(),
-  age: z.number(),
-})
-
-const data = xSchema.safeParse({ name: 'John', age: 25 })
-
-type X = z.infer<typeof xSchema>
 
 const main = async () => {
     await AppDataSource.initialize() 

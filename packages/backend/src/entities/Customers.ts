@@ -5,7 +5,7 @@ export class Customers {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column({type: 'text'})
+    @Column({type: 'text', unique: true})
     name: string;
 
     @Column({type: 'text'})
