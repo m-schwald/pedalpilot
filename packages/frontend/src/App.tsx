@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
-import Header from './components/Header'
+import { Route, Routes } from 'react-router-dom'
+import { Home, Customers, Deliveries, Riders, Layout, AddRider } from './views'
 
 const BackendUrl = "http://localhost:3000"
 
@@ -24,10 +25,15 @@ function App() {
 
   return (
     <>
-    <Header /> 
-      <div className="content">
-        <h1>Server says: {serverResponse.message}</h1>
-      </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home data={serverResponse} />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="deliveries" element={<Deliveries />} />
+        <Route path="riders" element={<Riders />} />
+        <Route path="riders/add_rider" element={<AddRider />} />
+      </Route>
+    </Routes>
     </>
   )
 }
