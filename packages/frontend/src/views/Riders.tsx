@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import '../App.css'
 import axios from 'axios'
 import { Rider } from '../types'
-import AddIcon from '@mui/icons-material/Add';
 import { Card, Typography, IconButton, Stack } from '@mui/material';
-
-const BackendUrl = "http://localhost:3000"
+import { BackendUrl } from '../App';
+import { LocalPhone, Mail, Add, Delete, Edit } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 function Riders() {
-
   const [riders, setRiders] = useState<Rider[]>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchRiders = async () => {
@@ -23,24 +23,53 @@ function Riders() {
     fetchRiders()
   }, [])
 
+  const deleteRider = async (id: number) => {
+    try {
+      await axios.delete(`${BackendUrl}/riders/${id}`)
+      setRiders(riders.filter(rider => rider.id !== id))
+    } catch (error) {
+      console.error("Error deleting rider: ", error)
+    }
+  }
+
   return (
     <>
-        <Typography>Hier eine Liste der Fahrenden:</Typography>
-        <Stack spacing={2}>
+        <Typography textAlign="center" variant="h3" sx={{ p:3 }}>
+          Hier eine Liste der Fahrenden:
+        </Typography>
+        <Stack direction="row" sx={{ p:3, flexWrap: "wrap", gap: "30px" }} justifyContent="center">
             {riders.length > 0 && riders.map((rider: any) => (
-                <Card>
-                <li key={rider.id} className="rider">
-                <p className='username'>{rider.username}</p>
-                <p>{rider.firstName} {rider.lastName}</p>
-                <p>{rider.phoneNumber}</p>
-                <p>{rider.email}</p>
-                <p>{rider.notes}</p>
-            </li>
-            </Card>
+              <Card key={rider.id} sx={{p:3, width: "20%", position: "relative"}} >
+                <Stack direction="row" alignItems="center" justifyContent="center" position="absolute" top={10} right={10}>
+                  <IconButton onClick={()=>navigate(`/riders/edit/${rider.id}`)} >
+                    <Edit />
+                  </IconButton>
+                  <IconButton onClick={()=>deleteRider(rider.id)}>
+                    <Delete />
+                  </IconButton>
+                </Stack>
+                <Stack className="rider" gap={1}>
+                  <Typography variant="h5" textAlign="center" sx={{p: 1}} className='username'>{rider.username}</Typography>
+                  <Typography>{rider.firstName} {rider.lastName}</Typography>
+                  <Stack alignItems="center" gap={1} direction="row">
+                    <LocalPhone fontSize="small" />
+                    <a href={`tel:${rider.phoneNumber}`}>{rider.phoneNumber}</a>
+                  </Stack>
+                  <Stack alignItems="center" gap={1} direction="row">
+                    <Mail fontSize="small" />
+                    <a href={`mailto:${rider.email}`}>{rider.email}</a>
+                  </Stack>
+                  <Typography>{rider.notes}</Typography>
+                </Stack>
+              </Card>
             ))}
-            <IconButton href="/riders/add_rider" >
-                <AddIcon />    
-            </IconButton>
+            <Card sx={{p:3, width: "20%" }}>
+              <IconButton href="/riders/add" sx={{ height: "100%", width: "100%", borderRadius: 0 }} >
+                <Stack alignItems="center" justifyContent="center" sx={{ p:3 }}>
+                    <Add fontSize='large' />
+                </Stack>
+              </IconButton>
+            </Card>
         </Stack>
     </>
   )

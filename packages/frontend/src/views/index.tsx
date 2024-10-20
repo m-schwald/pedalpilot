@@ -3,6 +3,6 @@ import Customers from "./Customers";
 import Deliveries from "./Deliveries";
 import Riders from "./Riders";
 import Layout from "./Layout";
-import AddRider from "./AddRider";
+import RiderForm from "./RiderForm";
 
-export { Home, Customers, Deliveries, Riders, Layout, AddRider };
+export { Home, Customers, Deliveries, Riders, Layout, RiderForm };

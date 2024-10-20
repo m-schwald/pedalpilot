@@ -1,10 +1,13 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const riderSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    username: z.string(),
-    phoneNumber: z.number(),
-    email: z.string().email(),
-    notes: z.string().optional(),
-  });
+  id: z.number().optional(), 
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
+  username: z.string().min(1, { message: "Username is required" }),
+  phoneNumber: z.coerce.number().min(1, { message: "Phone number is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  notes: z.string().optional()
+});
+
+export type Rider = z.infer<typeof riderSchema>;

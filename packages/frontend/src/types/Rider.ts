@@ -1,9 +1,3 @@
-export interface Rider {
-    id: number
-    firstName: string
-    lastName: string
-    username: string
-    phoneNumber: string
-    email: string
-    notes: string
-    }
+import { type Rider as OGRider } from "../../../backend/src/schemas/index";
+
+export type Rider = OGRider;

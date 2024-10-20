@@ -4,18 +4,19 @@ import cors from 'cors'
 import { AppDataSource } from './system/Database'
 import deliveryRoutes from './routes/deliveryRoutes'
 import customerRoutes from './routes/customerRoutes'
+import riderRoutes from './routes/riderRoutes'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-//app.use('/riders', riderRoutes)
+app.use('/riders', riderRoutes)
 app.use('/deliveries', deliveryRoutes)
 app.use('/customers', customerRoutes)
 
 app.get('/', (req, res) => {
-    res.send({ message: "Backend is running!"})
+    res.send({ message: "Backend is running! Tjaja"})
 })
 
 const main = async () => {

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import { Route, Routes } from 'react-router-dom'
-import { Home, Customers, Deliveries, Riders, Layout, AddRider } from './views'
+import { Home, Customers, Deliveries, Riders, Layout, RiderForm } from './views'
 
-const BackendUrl = "http://localhost:3000"
+export const BackendUrl = "http://localhost:3000"
 
 function App() {
 
@@ -31,7 +31,8 @@ function App() {
         <Route path="customers" element={<Customers />} />
         <Route path="deliveries" element={<Deliveries />} />
         <Route path="riders" element={<Riders />} />
-        <Route path="riders/add_rider" element={<AddRider />} />
+        <Route path="riders/add" element={<RiderForm />} />
+        <Route path="/riders/edit/:id" element={<RiderForm />} />
       </Route>
     </Routes>
     </>
